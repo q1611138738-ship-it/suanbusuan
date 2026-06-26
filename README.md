@@ -2,6 +2,7 @@
 
 > 一个结合确定性排盘引擎与 LLM 智能解读的现代命理学辅助分析工具。
 
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fq1611138738-ship-it%2Fsuanbusuan)
 
 ## 🌟 项目亮点
@@ -12,7 +13,7 @@
 
 ## 🚀 在线体验
 
-[🔗 点击体验在线 Demo](#) *(地址待更新)*
+[🔗 点击体验在线 Demo](https://suanbusuan.vercel.app)
 
 ## 💻 本地运行
 
@@ -49,4 +50,6 @@ pnpm dev
 
 ## 📜 协议 (License)
 
-[待确定协议 License](#)
+本项目采用 GNU Affero General Public License v3.0 only（AGPL-3.0-only）开源协议。
+
+这意味着如果你修改本项目并通过网络提供服务，也需要按照 AGPL-3.0 的要求开放相应源码。

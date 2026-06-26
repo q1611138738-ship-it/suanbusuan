@@ -311,10 +311,42 @@ export async function POST(req: Request) {
     // Call LLM Gateway
     const result = await streamLLM(finalPrompt, system, undefined, { temperature: 0.3 });
 
-    // Return the stream
-    return result.toTextStreamResponse({
+    // FIX: Await the first chunk to catch authentication errors synchronously!
+    const reader = result.textStream.getReader();
+    let firstChunk;
+    try {
+      firstChunk = await reader.read();
+    } catch (error: any) {
+      console.error("Stream API Call Error:", error);
+      const errorMsg = error.message || "Unknown error";
+      return NextResponse.json({ error: `大模型接口调用失败（${errorMsg}）。请检查 .env.local 中的 API Key。` }, { status: 500 });
+    }
+
+    // Return the stream with error handling
+    const customStream = new ReadableStream({
+      async start(controller) {
+        try {
+          if (!firstChunk.done) {
+            controller.enqueue(new TextEncoder().encode(firstChunk.value));
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              controller.enqueue(new TextEncoder().encode(value));
+            }
+          }
+        } catch (error: any) {
+          console.error("Stream error during iteration:", error);
+          controller.enqueue(new TextEncoder().encode(`\n\n[网络中断或生成失败: ${error.message}]`));
+        } finally {
+          controller.close();
+        }
+      }
+    });
+
+    return new NextResponse(customStream, {
       headers: {
         'x-session-id': sessionId,
+        'Content-Type': 'text/plain; charset=utf-8'
       }
     });
 
