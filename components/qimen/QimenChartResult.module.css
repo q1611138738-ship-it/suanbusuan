@@ -1,0 +1,425 @@
+.board {
+  --qm-board-line: rgba(113, 91, 54, 0.5);
+  --qm-cell-bg: #15120d;
+  --qm-cell-bg-soft: #1b1711;
+  --qm-cell-text: #f3ead7;
+  --qm-cell-muted: #a99d87;
+  --qm-cell-faint: #786f61;
+  --qm-gold: #d3b374;
+  --qm-gold-soft: rgba(211, 179, 116, 0.26);
+  --qm-blue: #8bb7df;
+  --qm-violet: #c6a7e9;
+  --qm-lucky: #7ccfa2;
+  --qm-bad: #e58a82;
+  --qm-neutral-door: #dfd1ba;
+  --qm-warm: #d6ae60;
+  --qm-cool: #95a3b5;
+  --qm-danger: #d87575;
+  --qm-shadow: rgba(0, 0, 0, 0.28);
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  width: min(100%, 620px);
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--qm-board-line);
+  border-radius: 12px;
+  background: var(--qm-board-line);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 233, 176, 0.05),
+    0 16px 34px -28px var(--qm-shadow);
+}
+
+.palace {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: 104px;
+  aspect-ratio: 1 / 0.82;
+  padding: 7px 8px 6px;
+  color: var(--qm-cell-text);
+  background:
+    linear-gradient(180deg, rgba(255, 239, 191, 0.035), transparent 42%),
+    var(--qm-cell-bg);
+}
+
+.palace::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid transparent;
+}
+
+.zhiFuPalace {
+  background:
+    linear-gradient(145deg, rgba(211, 179, 116, 0.15), transparent 46%),
+    var(--qm-cell-bg);
+}
+
+.zhiFuPalace::before {
+  border-color: rgba(211, 179, 116, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(211, 179, 116, 0.22);
+}
+
+.zhiShiPalace:not(.zhiFuPalace)::before {
+  border-color: rgba(139, 183, 223, 0.56);
+}
+
+.kongWangPalace {
+  color: rgba(243, 234, 215, 0.7);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0.018)),
+    var(--qm-cell-bg-soft);
+}
+
+.kongWangPalace .star,
+.kongWangPalace .door,
+.kongWangPalace .stemValue {
+  opacity: 0.72;
+}
+
+.metaRow,
+.mainRow,
+.doorRow,
+.badgeRow {
+  position: relative;
+  z-index: 1;
+}
+
+.metaRow,
+.doorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.metaRow {
+  min-width: 0;
+  line-height: 1;
+}
+
+.divinity {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--qm-violet);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gongLabel {
+  flex: none;
+  color: var(--qm-cell-faint);
+  font-size: 9px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.mainRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  min-width: 0;
+  padding-block: 4px 3px;
+}
+
+.starBlock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.star {
+  color: var(--qm-cell-text);
+  font-family: "Noto Serif SC", serif;
+  font-size: clamp(15px, 3.2vw, 18px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.vitality {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.vitalityStrong {
+  color: #231909;
+  background: var(--qm-warm);
+}
+
+.vitalityNeutral {
+  color: #1c1a16;
+  background: #a69b86;
+}
+
+.vitalityWeak {
+  color: #21170b;
+  background: #c89554;
+}
+
+.vitalityDead {
+  color: #fff5ed;
+  background: var(--qm-danger);
+}
+
+.heavenStemBlock,
+.earthStemBlock {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  flex: none;
+  min-width: 0;
+}
+
+.stemLabel {
+  color: var(--qm-cell-faint);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stemValue {
+  color: var(--qm-cell-muted);
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.door {
+  font-family: "Noto Serif SC", serif;
+  font-size: clamp(13px, 2.8vw, 15px);
+  font-weight: 760;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.doorLucky {
+  color: var(--qm-lucky);
+}
+
+.doorBad {
+  color: var(--qm-bad);
+}
+
+.doorNeutral {
+  color: var(--qm-neutral-door);
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 16px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 14px;
+  padding-inline: 4px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badgeZhiFu {
+  color: #281d0b;
+  background: var(--qm-gold);
+}
+
+.badgeZhiShi {
+  color: #0f2335;
+  background: var(--qm-blue);
+}
+
+.badgeYiMa {
+  color: #271a0c;
+  background: #d8a65f;
+}
+
+.badgeKong {
+  color: #ece6db;
+  background: rgba(120, 111, 97, 0.62);
+}
+
+.midPalace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--qm-cell-muted);
+  background:
+    radial-gradient(circle at center, rgba(211, 179, 116, 0.1), transparent 52%),
+    var(--qm-cell-bg-soft);
+}
+
+.midPalace .gongLabel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.midStem {
+  color: var(--qm-cell-text);
+  font-family: "Noto Serif SC", serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.legend {
+  --qm-legend-text: #6f675b;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 2px 2px 0;
+  color: var(--qm-legend-text);
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.legendSwatch,
+.legendDot {
+  display: inline-block;
+  flex: none;
+}
+
+.legendSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legendZhiFu {
+  background: rgba(211, 179, 116, 0.16);
+  border: 1px solid rgba(211, 179, 116, 0.72);
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.legendLucky {
+  background: var(--qm-lucky);
+}
+
+.legendBad {
+  background: var(--qm-bad);
+}
+
+.legendChip {
+  height: 14px;
+  padding-inline: 4px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 14px;
+}
+
+.legendDivider {
+  width: 1px;
+  height: 12px;
+  background: rgba(120, 111, 97, 0.42);
+}
+
+:global(html:not(.dark)) .board {
+  --qm-board-line: rgba(139, 113, 68, 0.34);
+  --qm-cell-bg: #fffaf0;
+  --qm-cell-bg-soft: #f5ecd9;
+  --qm-cell-text: #2b2115;
+  --qm-cell-muted: #655842;
+  --qm-cell-faint: #8b7e68;
+  --qm-gold: #a8843f;
+  --qm-gold-soft: rgba(149, 111, 45, 0.16);
+  --qm-blue: #487da8;
+  --qm-violet: #76549d;
+  --qm-lucky: #1d7c4a;
+  --qm-bad: #ad3f36;
+  --qm-neutral-door: #3a2d1c;
+  --qm-warm: #b4893d;
+  --qm-cool: #6f7a89;
+  --qm-danger: #a9413c;
+  --qm-shadow: rgba(64, 43, 18, 0.2);
+}
+
+:global(html:not(.dark)) .zhiFuPalace {
+  background:
+    linear-gradient(145deg, rgba(168, 132, 63, 0.12), transparent 48%),
+    var(--qm-cell-bg);
+}
+
+:global(html:not(.dark)) .kongWangPalace {
+  color: rgba(43, 33, 21, 0.68);
+}
+
+:global(html:not(.dark)) .badgeKong {
+  color: #f9f3e7;
+  background: rgba(100, 91, 76, 0.72);
+}
+
+:global(html:not(.dark)) .legend {
+  --qm-legend-text: #665a45;
+}
+
+@media (max-width: 520px) {
+  .board {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .palace {
+    min-height: 92px;
+    padding: 6px;
+  }
+
+  .star {
+    font-size: 14px;
+  }
+
+  .door {
+    font-size: 12px;
+  }
+
+  .stemValue {
+    font-size: 11px;
+  }
+
+  .badge {
+    height: 13px;
+    padding-inline: 3px;
+    font-size: 8px;
+  }
+}

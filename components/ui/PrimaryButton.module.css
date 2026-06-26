@@ -1,0 +1,115 @@
+.btn {
+  --g-top: #e2c995;
+  --g-mid: #b18f50;
+  --g-bot: #73572d;
+  --g-edge: rgba(255, 240, 205, 0.44);
+  --g-ink: #1c1408;
+  --g-glow: rgba(201, 168, 106, 0.36);
+  --g-focus: #d9bd81;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 28px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--g-ink);
+  font-family: "Noto Serif SC", serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  background:
+    linear-gradient(180deg, rgba(255, 246, 218, 0.44), transparent 32%),
+    linear-gradient(180deg, var(--g-top) 0%, var(--g-mid) 44%, var(--g-bot) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--g-edge),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 10px 28px -10px rgba(0, 0, 0, 0.6),
+    0 16px 50px -22px var(--g-glow);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.5) 50%, transparent 68%);
+  transform: translateX(-120%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+  transition: transform 1.1s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.label,
+.arrow {
+  position: relative;
+  z-index: 2;
+}
+
+.arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.btn:hover::before {
+  transform: translateX(120%);
+}
+
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  filter: brightness(0.97);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--g-focus);
+  outline-offset: 3px;
+}
+
+:global(html:not(.dark)) .btn {
+  --g-top: #d5b371;
+  --g-mid: #9b7834;
+  --g-bot: #705425;
+  --g-edge: rgba(255, 248, 225, 0.7);
+  --g-glow: rgba(132, 94, 32, 0.3);
+  --g-focus: #6c4f20;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  filter: saturate(0.55) brightness(0.82);
+  opacity: 0.68;
+  transform: none;
+}
+
+.btn:disabled::before {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::before {
+    display: none;
+  }
+
+  .btn,
+  .arrow {
+    transition: none;
+  }
+}

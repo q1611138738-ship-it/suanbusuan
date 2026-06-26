@@ -1,0 +1,38 @@
+.headerMark {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.moduleTitle {
+  --start-title: #f4eddd;
+  --start-title-shadow: rgba(183, 147, 79, 0.2);
+
+  display: block;
+  color: var(--start-title);
+  font-family: "Noto Serif SC", serif;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-shadow: 0 0 18px var(--start-title-shadow);
+}
+
+.moduleTitle::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, transparent, rgba(194, 162, 94, 0.72), transparent);
+}
+
+.startButtonWrap {
+  padding-inline: 8px;
+  padding-top: 18px;
+}
+
+:global(html:not(.dark)) .moduleTitle {
+  --start-title: #2a2117;
+  --start-title-shadow: rgba(128, 92, 35, 0.12);
+}

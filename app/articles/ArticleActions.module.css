@@ -1,0 +1,97 @@
+.moreToolsButton {
+  --article-tools-border: color-mix(in srgb, var(--home-gold) 46%, transparent);
+  --article-tools-text: color-mix(in srgb, var(--home-gold-deep) 78%, var(--hero-title));
+  --article-tools-sheen: rgba(255, 255, 255, 0.58);
+  --article-tools-bg-top: color-mix(in srgb, var(--home-panel-strong) 76%, var(--home-gold) 8%);
+  --article-tools-bg-bottom: color-mix(in srgb, var(--home-bg-soft) 78%, var(--home-gold) 10%);
+  --article-tools-shadow: color-mix(in srgb, var(--home-shadow) 72%, transparent);
+  --article-tools-glow: color-mix(in srgb, var(--home-gold) 18%, transparent);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: var(--article-tools-border) !important;
+  background:
+    linear-gradient(180deg, var(--article-tools-bg-top), var(--article-tools-bg-bottom)) !important;
+  color: var(--article-tools-text) !important;
+  box-shadow:
+    inset 0 1px 0 var(--article-tools-sheen),
+    inset 0 -10px 22px color-mix(in srgb, var(--home-gold-deep) 8%, transparent),
+    0 14px 34px var(--article-tools-shadow) !important;
+  letter-spacing: 0;
+}
+
+.moreToolsButton::before {
+  content: "";
+  position: absolute;
+  inset: 1px 12px auto;
+  height: 46%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent);
+  opacity: 0.64;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.moreToolsButton:hover {
+  border-color: color-mix(in srgb, var(--home-gold) 68%, transparent) !important;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--article-tools-bg-top) 82%, var(--home-gold) 18%),
+      color-mix(in srgb, var(--article-tools-bg-bottom) 84%, var(--home-gold) 16%)) !important;
+  color: var(--hero-title) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -10px 22px color-mix(in srgb, var(--home-gold-deep) 10%, transparent),
+    0 16px 40px var(--article-tools-shadow),
+    0 0 24px var(--article-tools-glow) !important;
+}
+
+.moreToolsButton:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    inset 0 6px 18px color-mix(in srgb, var(--home-gold-deep) 14%, transparent),
+    0 8px 22px var(--article-tools-shadow) !important;
+}
+
+.moreToolsButton:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 var(--article-tools-sheen),
+    0 0 0 3px color-mix(in srgb, var(--home-gold) 28%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--home-gold) 72%, transparent),
+    0 14px 34px var(--article-tools-shadow) !important;
+}
+
+:global(.dark) .moreToolsButton {
+  --article-tools-border: color-mix(in srgb, var(--home-gold) 42%, transparent);
+  --article-tools-text: color-mix(in srgb, var(--home-gold) 78%, var(--home-text));
+  --article-tools-sheen: rgba(255, 242, 205, 0.12);
+  --article-tools-bg-top: color-mix(in srgb, var(--home-panel-strong) 82%, var(--home-gold) 8%);
+  --article-tools-bg-bottom: color-mix(in srgb, var(--home-bg-soft) 88%, var(--home-gold-deep) 12%);
+  --article-tools-shadow: rgba(0, 0, 0, 0.34);
+  --article-tools-glow: color-mix(in srgb, var(--home-gold) 22%, transparent);
+
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+}
+
+:global(.dark) .moreToolsButton::before {
+  background: linear-gradient(180deg, rgba(255, 226, 168, 0.12), transparent);
+  opacity: 0.82;
+}
+
+:global(.dark) .moreToolsButton:hover {
+  color: #fff0cb !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moreToolsButton {
+    transition: none !important;
+  }
+
+  .moreToolsButton:hover,
+  .moreToolsButton:active {
+    transform: none;
+  }
+}
