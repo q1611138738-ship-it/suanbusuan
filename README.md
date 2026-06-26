@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 算不算 (suanbusuan)
 
-## Getting Started
+> 一个结合确定性排盘引擎与 LLM 智能解读的现代命理学辅助分析工具。
 
-First, run the development server:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fq1611138738-ship-it%2Fsuanbusuan)
+
+## 🌟 项目亮点
+
+- **确定性排盘 + AI 解读**：拒绝含糊其辞的“黑盒算命”。我们采用高精度的八字/奇门等确定性排盘引擎作为基座，仅使用大模型进行自然语言的梳理与交互解读。
+- **精准的校准数据集**：所有底层判定逻辑均**基于 228 个真实、脱敏、纯净案例校准与验证**，确保引擎输出的严谨性与准确率。
+- **现代化体验**：基于 Next.js App Router, Tailwind CSS 构建的极佳交互界面。
+
+## 🚀 在线体验
+
+[🔗 点击体验在线 Demo](#) *(地址待更新)*
+
+## 💻 本地运行
+
+1. **克隆仓库**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/q1611138738-ship-it/suanbusuan.git
+cd suanbusuan
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **配置环境变量**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+复制模板并填入你的大模型 API Key（目前默认使用 DeepSeek，也可在 `config/providers.ts` 中无缝切换）：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env.local
+```
 
-## Learn More
+3. **安装依赖并启动**
 
-To learn more about Next.js, take a look at the following resources:
+推荐使用 `pnpm`：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm install
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+打开 [http://localhost:3000](http://localhost:3000) 即可预览。
 
-## Deploy on Vercel
+## 📖 数据说明
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+为了验证预测模块中核心逻辑的有效性，我们人工梳理并构建了严格的测试集。本项目**基于 228 个真实、脱敏、纯净案例校准与验证**。
+*注：本项目不涉及任何形式的模型“训练”或“微调”，所有案例纯粹用于引擎规则的自动化校准与回归测试。*
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 协议 (License)
+
+[待确定协议 License](#)
